@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Muhammad Khasanboev — Native Mobile Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --bg-secondary: #161b27;
+      --bg-card: #161b27;
+      --border: #1e2533;
+      --text-primary: #f0f4ff;
+      --text-secondary: #8b95b0;
+      --text-muted: #4b5675;
+      --accent: #4d8ef8;
+      --accent-light: rgba(77,142,248,0.1);
+      --accent-hover: #3b7ef6;
+      --tag-bg: #1a2035;
+      --tag-text: #a0aec0;
+      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,.4), 0 2px 4px -1px rgba(0,0,0,.3);
+      --radius: 12px;
+      --nav-height: 64px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ANIMATION ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    main, nav, footer { position: relative; z-index: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      background: rgba(15,17,23,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 4px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: background .15s, color .15s;
+    }
+
+    nav a:hover, nav a.active {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    /* ── LAYOUT ── */
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+      padding-top: calc(var(--nav-height) + 64px);
+    }
+
+    section { margin-bottom: 72px; }
+
+    /* ── HERO ── */
+    #home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .avatar {
+      width: 112px;
+      height: 112px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1a2540 0%, #1e2d50 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 24px;
+      border: 3px solid #1e2d50;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    #home h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      margin-bottom: 8px;
+    }
+
+    #home .title {
+      font-size: 17px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 6px;
+    }
+
+    #home .location {
+      font-size: 14px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 24px;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      padding: 8px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      background: var(--bg);
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+
+    .contact-link svg { flex-shrink: 0; }
+
+    /* ── SECTION HEADINGS ── */
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -.3px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── ABOUT ── */
+    #about p {
+      color: var(--text-secondary);
+      line-height: 1.75;
+      font-size: 15.5px;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .timeline-item {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    .timeline-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      bottom: -12px;
+      width: 1px;
+      background: var(--border);
+    }
+
+    .timeline-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--accent);
+    }
+
+    .timeline-content {
+      flex: 1;
+      padding-bottom: 32px;
+    }
+
+    .timeline-content h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .timeline-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .timeline-company {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .timeline-date {
+      font-size: 13px;
+      color: var(--text-muted);
+      background: var(--tag-bg);
+      padding: 2px 10px;
+      border-radius: 99px;
+    }
+
+    .badge-current {
+      font-size: 11px;
+      font-weight: 600;
+      color: #34d399;
+      background: rgba(52,211,153,.12);
+      padding: 2px 8px;
+      border-radius: 99px;
+    }
+
+    .timeline-content ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .timeline-content ul li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 8px;
+    }
+
+    .timeline-content ul li::before {
+      content: '·';
+      color: var(--accent);
+      font-size: 18px;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: flex; flex-direction: column; gap: 20px; }
+
+    .project-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      background: var(--bg-card);
+      box-shadow: var(--shadow);
+      transition: box-shadow .2s, border-color .2s;
+    }
+
+    .project-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: #d1d5db;
+    }
+
+    .project-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .project-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .project-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .badge-live {
+      font-size: 11px;
+      font-weight: 600;
+      color: #34d399;
+      background: rgba(52,211,153,.12);
+      padding: 3px 9px;
+      border-radius: 99px;
+    }
+
+    .project-date {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .project-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 14px;
+    }
+
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .tech-tag {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 7px;
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      transition: background .15s, border-color .15s, color .15s;
+    }
+
+    .project-link:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .project-link.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .project-link.primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+      color: #fff;
+    }
+
+    /* ── SKILLS ── */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-tag {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--tag-text);
+      background: var(--tag-bg);
+      padding: 6px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: background .15s, border-color .15s, color .15s;
+    }
+
+    .skill-tag:hover {
+      background: var(--accent-light);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ── GITHUB ── */
+    .github-card {
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      background: var(--bg-card);
+      box-shadow: var(--shadow);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .github-card-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .github-icon {
+      width: 48px;
+      height: 48px;
+      background: #1e2533;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .github-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .github-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 20px;
+      border-radius: 8px;
+      transition: background .15s;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 40px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      main { padding: 0 16px; padding-top: calc(var(--nav-height) + 48px); }
+      #home h1 { font-size: 26px; }
+      nav ul { gap: 0; }
+      nav a { padding: 6px 9px; font-size: 13px; }
+      .github-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#github">GitHub</a></li>
+    </ul>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="avatar">MK</div>
+      <h1>Muhammad Khasanboev</h1>
+      <p class="title">Native Mobile Developer</p>
+      <p class="location">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
+        Tashkent, Uzbekistan
+      </p>
+      <div class="contact-links">
+        <a href="mailto:muhammadkhasanboev@gmail.com" class="contact-link">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          Email
+        </a>
+        <a href="https://www.linkedin.com/in/muhammadkhasanboev" target="_blank" rel="noopener" class="contact-link">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/muhammadkhasanboev" target="_blank" rel="noopener" class="contact-link">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <h2 class="section-title">About</h2>
+      <p>
+        I'm an Electrical and Computer Engineering student passionate about building real-world software solutions.
+        With expertise in both Android and iOS development, I focus on creating clean, scalable, and user-friendly
+        mobile applications. I enjoy working across the full mobile stack — from crafting polished UIs with Jetpack
+        Compose and SwiftUI to integrating REST APIs, implementing MVVM architecture, and bridging native code with
+        web technologies.
+      </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <h2 class="section-title">Experience</h2>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          </div>
+          <div class="timeline-content">
+            <h3>Native Mobile Developer</h3>
+            <div class="timeline-meta">
+              <span class="timeline-company">TAD Industries LLC</span>
+              <span class="timeline-date">Sep 2025 — Present</span>
+              <span class="badge-current">Current</span>
+            </div>
+            <ul>
+              <li>Publishing and maintaining production applications on App Store and Play Store</li>
+              <li>Debugging, profiling, and designing intuitive interfaces</li>
+              <li>Building JS native bridge and webview integrations</li>
+              <li>Integrating AI features into mobile applications</li>
+              <li>Working with Room DB and MVVM architecture patterns</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          </div>
+          <div class="timeline-content">
+            <h3>Native Mobile Developer — Internship</h3>
+            <div class="timeline-meta">
+              <span class="timeline-company">TAD Industries LLC</span>
+              <span class="timeline-date">Jun 2025 — Sep 2025</span>
+            </div>
+            <ul>
+              <li>Developed native Android applications using Java/XML and Kotlin/Jetpack Compose</li>
+              <li>Implemented Activities, Fragments, and navigation components</li>
+              <li>Integrated RESTful APIs with Retrofit and Moshi</li>
+              <li>Applied UI/UX best practices to improve user experience</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <h2 class="section-title">Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title-row">
+              <h3>Lope Style</h3>
+              <span class="badge-live">Live</span>
+            </div>
+            <span class="project-date">April 2026</span>
+          </div>
+          <p>
+            A cross-platform mobile app for barber and style booking, wrapping a webview with deep link handling.
+            Delivers seamless navigation between native and web layers with push notifications via Firebase.
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">Jetpack Compose</span>
+            <span class="tech-tag">Swift</span>
+            <span class="tech-tag">SwiftUI</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Deep Links</span>
+          </div>
+          <div class="project-links">
+            <a href="https://apps.apple.com/uz/app/lopestyle/id6761615021" target="_blank" rel="noopener" class="project-link primary">
+              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+              App Store
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=uz.barberbook.mobile" target="_blank" rel="noopener" class="project-link">
+              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3.18 23.76c.37.21.8.22 1.18.05l12.83-7.4-2.79-2.79-11.22 10.14zM20.4 10.12l-2.77-1.6L14.6 12l3.04 3.04 2.77-1.6a1.59 1.59 0 000-3.32zM2.1.4A1.6 1.6 0 001.5 1.7v20.6c0 .5.2.96.6 1.3L13.47 12 2.1.4zm11.33 10.64l-10.27-10.3 12.83 7.4-2.57 2.57-.82-.82.83.83-2.57 2.57L3.16 23.64l10.27-10.29L12.36 12l1.07-1z"/></svg>
+              Play Store
+            </a>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-header">
+            <div class="project-title-row">
+              <h3>Smart Safe Education</h3>
+              <span class="badge-live">Live</span>
+            </div>
+            <span class="project-date">March 2026</span>
+          </div>
+          <p>
+            A native Android educational platform that wraps a webview within a robust native shell, providing
+            seamless authentication, offline handling, and native bridge communication with the web layer.
+          </p>
+          <div class="tech-tags">
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">Jetpack Compose</span>
+            <span class="tech-tag">Appwrite</span>
+            <span class="tech-tag">REST APIs</span>
+            <span class="tech-tag">MVVM</span>
+            <span class="tech-tag">Native Bridge</span>
+          </div>
+          <div class="project-links">
+            <a href="https://play.google.com/store/apps/details?id=tadi.projects.tadischool" target="_blank" rel="noopener" class="project-link primary">
+              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3.18 23.76c.37.21.8.22 1.18.05l12.83-7.4-2.79-2.79-11.22 10.14zM20.4 10.12l-2.77-1.6L14.6 12l3.04 3.04 2.77-1.6a1.59 1.59 0 000-3.32zM2.1.4A1.6 1.6 0 001.5 1.7v20.6c0 .5.2.96.6 1.3L13.47 12 2.1.4zm11.33 10.64l-10.27-10.3 12.83 7.4-2.57 2.57-.82-.82.83.83-2.57 2.57L3.16 23.64l10.27-10.29L12.36 12l1.07-1z"/></svg>
+              Play Store
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <h2 class="section-title">Education</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422A12.083 12.083 0 0121 17H3a12.083 12.083 0 012.84-6.422L12 14z"/></svg>
+          </div>
+          <div class="timeline-content">
+            <h3>Bachelor of Engineering — Electrical and Computer Engineering</h3>
+            <div class="timeline-meta">
+              <span class="timeline-company">Ajou University</span>
+              <span class="timeline-date">Sep 2022 — 2026</span>
+            </div>
+            <ul>
+              <li>Focused on computer engineering fundamentals and software development</li>
+              <li>Applied engineering principles to real-world mobile application projects</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-grid">
+        <span class="skill-tag">Kotlin</span>
+        <span class="skill-tag">Java</span>
+        <span class="skill-tag">Swift</span>
+        <span class="skill-tag">SwiftUI</span>
+        <span class="skill-tag">Jetpack Compose</span>
+        <span class="skill-tag">Jetpack Compose Navigation</span>
+        <span class="skill-tag">Android Studio</span>
+        <span class="skill-tag">iOS Development</span>
+        <span class="skill-tag">MVVM Architecture</span>
+        <span class="skill-tag">Room DB</span>
+        <span class="skill-tag">Retrofit</span>
+        <span class="skill-tag">Moshi</span>
+        <span class="skill-tag">Hilt DI</span>
+        <span class="skill-tag">REST APIs</span>
+        <span class="skill-tag">JS Native Bridge</span>
+        <span class="skill-tag">Webview</span>
+        <span class="skill-tag">Firebase</span>
+        <span class="skill-tag">AI Integration</span>
+        <span class="skill-tag">Google Maps API</span>
+        <span class="skill-tag">Google Face Detection ML Kit</span>
+        <span class="skill-tag">Appwrite</span>
+        <span class="skill-tag">Keystore</span>
+        <span class="skill-tag">SharedPreferences</span>
+      </div>
+    </section>
+
+    <!-- GITHUB -->
+    <section id="github">
+      <h2 class="section-title">GitHub</h2>
+      <div class="github-card">
+        <div class="github-card-left">
+          <div class="github-icon">
+            <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+          </div>
+          <div>
+            <h3>muhammadkhasanboev</h3>
+            <p>View my open source projects and contributions</p>
+          </div>
+        </div>
+        <a href="https://github.com/muhammadkhasanboev" target="_blank" rel="noopener" class="btn-primary">
+          View GitHub
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Muhammad Khasanboev · Native Mobile Developer · Tashkent, Uzbekistan</p>
+  </footer>
+
+  <script>
+    // ── CANVAS BACKGROUND ──
+    const canvas = document.getElementById('bg-canvas');
+    const ctx    = canvas.getContext('2d');
+
+    let W, H;
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', () => { resize(); initParticles(); });
+
+    // Mouse
+    const mouse = { x: -9999, y: -9999 };
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+    // Click ripples
+    const ripples = [];
+    window.addEventListener('click', e => {
+      ripples.push({ x: e.clientX, y: e.clientY, r: 0, max: 120, alpha: 1 });
+    });
+
+    // Tech keywords
+    const KEYWORDS = [
+      'Kotlin', 'Swift', 'MVVM', 'Jetpack', 'SwiftUI',
+      'Retrofit', 'Hilt DI', 'Room DB', 'REST API', 'Firebase',
+      'Compose', 'Coroutines', 'Git', 'SOLID', 'Appwrite',
+      'Android', 'iOS', 'Gradle', 'XCTest', 'WebView',
+    ];
+
+    let words = [];
+    function initWords() {
+      words = KEYWORDS.map(text => ({
+        text,
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.18 + 0.07,
+        size: Math.random() * 4 + 10,
+      }));
+    }
+
+    // Nodes
+    const NODE_COUNT = 70;
+    const CONNECT_DIST = 140;
+    const MOUSE_PUSH   = 100;
+    let nodes = [];
+
+    function initParticles() {
+      nodes = Array.from({ length: NODE_COUNT }, () => ({
+        x:  Math.random() * W,
+        y:  Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.6,
+        vy: (Math.random() - 0.5) * 0.6,
+        r:  Math.random() * 2 + 1.5,
+        baseAlpha: Math.random() * 0.5 + 0.3,
+      }));
+      initWords();
+    }
+    initParticles();
+
+    let frame = 0;
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      // ── floating code keywords ──
+      ctx.textAlign = 'left';
+      words.forEach(w => {
+        w.x += w.vx;
+        w.y += w.vy;
+        if (w.x < -100)  w.x = W + 80;
+        if (w.x > W + 100) w.x = -80;
+        if (w.y < -30)   w.y = H + 20;
+        if (w.y > H + 30)  w.y = -20;
+
+        // pulse opacity
+        const pulse = w.alpha * (0.6 + 0.4 * Math.sin(frame * 0.01 + w.x));
+        ctx.font = `500 ${w.size}px 'Inter', monospace`;
+        ctx.fillStyle = `rgba(37,99,235,${pulse})`;
+        ctx.fillText(w.text, w.x, w.y);
+      });
+
+      // ── update & draw nodes ──
+      nodes.forEach(n => {
+        // Mouse repulsion
+        const dx = n.x - mouse.x;
+        const dy = n.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_PUSH && dist > 0) {
+          const force = (MOUSE_PUSH - dist) / MOUSE_PUSH;
+          n.vx += (dx / dist) * force * 0.8;
+          n.vy += (dy / dist) * force * 0.8;
+        }
+
+        // Friction
+        n.vx *= 0.97;
+        n.vy *= 0.97;
+
+        n.x += n.vx;
+        n.y += n.vy;
+
+        // Wrap edges
+        if (n.x < 0)  n.x = W;
+        if (n.x > W)  n.x = 0;
+        if (n.y < 0)  n.y = H;
+        if (n.y > H)  n.y = 0;
+      });
+
+      // ── draw connecting lines ──
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d  = Math.sqrt(dx * dx + dy * dy);
+          if (d < CONNECT_DIST) {
+            const alpha = (1 - d / CONNECT_DIST) * 0.45;
+
+            // highlight lines near mouse
+            const mx = (a.x + b.x) / 2 - mouse.x;
+            const my = (a.y + b.y) / 2 - mouse.y;
+            const md = Math.sqrt(mx * mx + my * my);
+            const boost = md < 160 ? (1 - md / 160) * 0.5 : 0;
+
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(37,99,235,${alpha + boost})`;
+            ctx.lineWidth = 0.8 + boost;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // ── draw nodes ──
+      nodes.forEach(n => {
+        const dx   = n.x - mouse.x;
+        const dy   = n.y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const near = dist < 120;
+
+        // glow for nearby nodes
+        if (near) {
+          const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 20);
+          g.addColorStop(0, `rgba(37,99,235,0.25)`);
+          g.addColorStop(1, `rgba(37,99,235,0)`);
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 20, 0, Math.PI * 2);
+          ctx.fillStyle = g;
+          ctx.fill();
+        }
+
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, near ? n.r + 1.5 : n.r, 0, Math.PI * 2);
+        ctx.fillStyle = near
+          ? `rgba(37,99,235,${n.baseAlpha + 0.4})`
+          : `rgba(37,99,235,${n.baseAlpha})`;
+        ctx.fill();
+      });
+
+      // ── mouse glow cursor ──
+      if (mouse.x > 0) {
+        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
+        g.addColorStop(0, 'rgba(37,99,235,0.12)');
+        g.addColorStop(1, 'rgba(37,99,235,0)');
+        ctx.beginPath();
+        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
+        ctx.fillStyle = g;
+        ctx.fill();
+      }
+
+      // ── click ripples ──
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const rp = ripples[i];
+        rp.r    += 4;
+        rp.alpha = (1 - rp.r / rp.max) * 0.7;
+        if (rp.r >= rp.max) { ripples.splice(i, 1); continue; }
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(37,99,235,${rp.alpha})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      }
+
+      frame++;
+      requestAnimationFrame(draw);
+    }
+    draw();
+
+    // ── Active nav link on scroll ──
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`nav a[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+  </script>
+</body>
+</html>
