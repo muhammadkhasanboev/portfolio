@@ -3,108 +3,89 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Muhammad Khasanboev — Native Mobile Developer</title>
+  <title>Muhammad Khasanboev — Mobile Developer</title>
+  <meta name="description" content="Muhammad Khasanboev — Native Android & iOS developer building and shipping production mobile apps." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0f1117;
-      --bg-secondary: #161b27;
-      --bg-card: #161b27;
-      --border: #1e2533;
-      --text-primary: #f0f4ff;
-      --text-secondary: #8b95b0;
-      --text-muted: #4b5675;
-      --accent: #4d8ef8;
-      --accent-light: rgba(77,142,248,0.1);
-      --accent-hover: #3b7ef6;
-      --tag-bg: #1a2035;
-      --tag-text: #a0aec0;
-      --shadow: 0 1px 3px rgba(0,0,0,.4), 0 1px 2px rgba(0,0,0,.3);
-      --shadow-md: 0 4px 6px -1px rgba(0,0,0,.4), 0 2px 4px -1px rgba(0,0,0,.3);
+      --bg: #ffffff;
+      --bg-soft: #f7f8fa;
+      --border: #e4e7ec;
+      --text: #1a2233;
+      --text-soft: #4b5565;
+      --text-muted: #8a93a3;
+      --accent: #2563eb;
+      --accent-soft: #eef3ff;
+      --tag-bg: #f2f4f7;
+      --green: #15803d;
+      --green-soft: #e7f6ec;
       --radius: 12px;
-      --nav-height: 64px;
+      --nav-height: 60px;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
-      color: var(--text-primary);
+      color: var(--text);
       line-height: 1.6;
       font-size: 15px;
-      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
-
-    /* ── BACKGROUND ANIMATION ── */
-    #bg-canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      width: 100%;
-      height: 100%;
-    }
-
-    main, nav, footer { position: relative; z-index: 1; }
 
     /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       height: var(--nav-height);
-      background: rgba(15,17,23,.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       z-index: 100;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-
     nav::-webkit-scrollbar { display: none; }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 4px;
+      gap: 2px;
       flex-shrink: 0;
       padding: 0 12px;
     }
 
     nav a {
       text-decoration: none;
-      color: var(--text-secondary);
+      color: var(--text-soft);
       font-size: 14px;
       font-weight: 500;
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 8px;
       transition: background .15s, color .15s;
+      white-space: nowrap;
     }
-
-    nav a:hover, nav a.active {
-      background: var(--accent-light);
-      color: var(--accent);
-    }
+    nav a:hover { color: var(--text); background: var(--bg-soft); }
+    nav a.active { background: var(--accent-soft); color: var(--accent); }
 
     /* ── LAYOUT ── */
     main {
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto;
       padding: 0 24px;
-      padding-top: calc(var(--nav-height) + 64px);
+      padding-top: calc(var(--nav-height) + 56px);
     }
-
-    section { margin-bottom: 72px; }
+    section { margin-bottom: 64px; scroll-margin-top: calc(var(--nav-height) + 16px); }
 
     /* ── HERO ── */
     #home {
@@ -112,98 +93,77 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      padding-top: 8px;
     }
-
     .avatar {
-      width: 112px;
-      height: 112px;
+      width: 96px;
+      height: 96px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #1a2540 0%, #1e2d50 100%);
+      background: var(--accent-soft);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 42px;
+      font-size: 34px;
       font-weight: 700;
       color: var(--accent);
-      margin-bottom: 24px;
-      border: 3px solid #1e2d50;
-      overflow: hidden;
-      flex-shrink: 0;
+      margin-bottom: 20px;
+      border: 1px solid var(--border);
     }
-
-    .avatar img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
     #home h1 {
-      font-size: 32px;
+      font-size: 30px;
       font-weight: 700;
       letter-spacing: -.5px;
-      margin-bottom: 8px;
-    }
-
-    #home .title {
-      font-size: 17px;
-      color: var(--accent);
-      font-weight: 500;
       margin-bottom: 6px;
     }
-
+    #home .title {
+      font-size: 16px;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
     #home .location {
       font-size: 14px;
       color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      margin-bottom: 24px;
+      gap: 5px;
+      margin-bottom: 22px;
     }
-
     .contact-links {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       justify-content: center;
     }
-
     .contact-link {
       display: inline-flex;
       align-items: center;
       gap: 7px;
       text-decoration: none;
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 8px;
       font-size: 14px;
       font-weight: 500;
       border: 1px solid var(--border);
-      color: var(--text-primary);
+      color: var(--text);
       background: var(--bg);
-      transition: border-color .15s, box-shadow .15s, background .15s;
+      transition: border-color .15s, background .15s, color .15s;
     }
-
-    .contact-link:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(37,99,235,.08);
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-
+    .contact-link:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
     .contact-link svg { flex-shrink: 0; }
 
     /* ── SECTION HEADINGS ── */
     .section-title {
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: -.3px;
-      margin-bottom: 24px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 22px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-
     .section-title::after {
       content: '';
       flex: 1;
@@ -212,186 +172,109 @@
     }
 
     /* ── ABOUT ── */
-    #about p {
-      color: var(--text-secondary);
-      line-height: 1.75;
-      font-size: 15.5px;
-    }
+    #about p { color: var(--text-soft); font-size: 15.5px; line-height: 1.75; }
 
     /* ── TIMELINE ── */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-
-    .timeline-item {
-      display: flex;
-      gap: 20px;
-      position: relative;
-    }
-
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: flex; gap: 18px; position: relative; }
     .timeline-item:not(:last-child)::before {
       content: '';
       position: absolute;
-      left: 19px;
-      top: 40px;
-      bottom: -12px;
-      width: 1px;
+      left: 5px;
+      top: 16px;
+      bottom: -8px;
+      width: 2px;
       background: var(--border);
     }
-
     .timeline-dot {
-      width: 40px;
-      height: 40px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: var(--accent-light);
-      border: 2px solid var(--accent);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--accent);
       flex-shrink: 0;
-      margin-top: 2px;
-      color: var(--accent);
+      margin-top: 5px;
+      box-shadow: 0 0 0 4px var(--accent-soft);
     }
-
-    .timeline-content {
-      flex: 1;
-      padding-bottom: 32px;
-    }
-
-    .timeline-content h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
-
+    .timeline-content { flex: 1; padding-bottom: 28px; }
+    .timeline-content h3 { font-size: 16px; font-weight: 600; margin-bottom: 3px; }
     .timeline-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
       align-items: center;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
-
-    .timeline-company {
-      font-size: 14px;
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    .timeline-date {
-      font-size: 13px;
-      color: var(--text-muted);
-      background: var(--tag-bg);
-      padding: 2px 10px;
-      border-radius: 99px;
-    }
-
+    .timeline-company { font-size: 14px; color: var(--text-soft); font-weight: 500; }
+    .timeline-date { font-size: 13px; color: var(--text-muted); }
+    .dot-sep { color: var(--border); }
     .badge-current {
       font-size: 11px;
       font-weight: 600;
-      color: #34d399;
-      background: rgba(52,211,153,.12);
-      padding: 2px 8px;
+      color: var(--green);
+      background: var(--green-soft);
+      padding: 2px 9px;
       border-radius: 99px;
     }
-
-    .timeline-content ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-    }
-
+    .timeline-content ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .timeline-content ul li {
       font-size: 14px;
-      color: var(--text-secondary);
+      color: var(--text-soft);
       display: flex;
-      gap: 8px;
+      gap: 9px;
+      line-height: 1.55;
     }
-
     .timeline-content ul li::before {
-      content: '·';
-      color: var(--accent);
-      font-size: 18px;
-      line-height: 1.3;
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
       flex-shrink: 0;
+      margin-top: 8px;
     }
 
     /* ── PROJECTS ── */
-    .projects-grid { display: flex; flex-direction: column; gap: 20px; }
-
+    .projects-grid { display: flex; flex-direction: column; gap: 16px; }
     .project-card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
-      background: var(--bg-card);
-      box-shadow: var(--shadow);
-      transition: box-shadow .2s, border-color .2s;
+      padding: 22px;
+      background: var(--bg);
+      transition: border-color .2s, box-shadow .2s;
     }
-
     .project-card:hover {
-      box-shadow: var(--shadow-md);
-      border-color: #d1d5db;
+      border-color: #cdd5e0;
+      box-shadow: 0 4px 16px rgba(16,24,40,.06);
     }
-
     .project-header {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
-
-    .project-title-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .project-card h3 {
-      font-size: 17px;
-      font-weight: 600;
-    }
-
+    .project-title-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .project-card h3 { font-size: 16px; font-weight: 600; }
     .badge-live {
       font-size: 11px;
       font-weight: 600;
-      color: #34d399;
-      background: rgba(52,211,153,.12);
-      padding: 3px 9px;
+      color: var(--green);
+      background: var(--green-soft);
+      padding: 2px 9px;
       border-radius: 99px;
     }
-
-    .project-date {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    .project-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 14px;
-    }
-
-    .tech-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 16px;
-    }
-
+    .project-date { font-size: 13px; color: var(--text-muted); white-space: nowrap; }
+    .project-card p { font-size: 14px; color: var(--text-soft); line-height: 1.65; margin-bottom: 14px; }
+    .tech-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
     .tech-tag {
       font-size: 12px;
       font-weight: 500;
-      color: var(--tag-text);
+      color: var(--text-soft);
       background: var(--tag-bg);
       padding: 3px 10px;
       border-radius: 6px;
-      border: 1px solid var(--border);
     }
-
     .project-links { display: flex; gap: 10px; flex-wrap: wrap; }
-
     .project-link {
       display: inline-flex;
       align-items: center;
@@ -399,97 +282,61 @@
       text-decoration: none;
       font-size: 13px;
       font-weight: 500;
-      padding: 6px 14px;
-      border-radius: 7px;
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      transition: background .15s, border-color .15s, color .15s;
-    }
-
-    .project-link:hover {
-      background: var(--accent-light);
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    .project-link.primary {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
-
-    .project-link.primary:hover {
-      background: var(--accent-hover);
-      border-color: var(--accent-hover);
-      color: #fff;
-    }
-
-    /* ── SKILLS ── */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-tag {
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--tag-text);
-      background: var(--tag-bg);
-      padding: 6px 14px;
+      padding: 7px 14px;
       border-radius: 8px;
       border: 1px solid var(--border);
+      color: var(--text);
       transition: background .15s, border-color .15s, color .15s;
     }
+    .project-link:hover { background: var(--bg-soft); border-color: #cdd5e0; }
+    .project-link.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .project-link.primary:hover { background: #1d4ed8; border-color: #1d4ed8; }
 
-    .skill-tag:hover {
-      background: var(--accent-light);
-      border-color: var(--accent);
-      color: var(--accent);
+    /* ── SKILLS ── */
+    .skill-group { margin-bottom: 18px; }
+    .skill-group:last-child { margin-bottom: 0; }
+    .skill-group h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .skills-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-soft);
+      background: var(--bg-soft);
+      padding: 5px 13px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
     }
 
     /* ── GITHUB ── */
     .github-card {
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 28px;
-      background: var(--bg-card);
-      box-shadow: var(--shadow);
+      padding: 24px;
+      background: var(--bg-soft);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 18px;
       flex-wrap: wrap;
     }
-
-    .github-card-left {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
+    .github-card-left { display: flex; align-items: center; gap: 14px; }
     .github-icon {
-      width: 48px;
-      height: 48px;
-      background: #1e2533;
+      width: 44px;
+      height: 44px;
+      background: var(--text);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-
-    .github-card h3 {
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 3px;
-    }
-
-    .github-card p {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
-
+    .github-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+    .github-card p { font-size: 14px; color: var(--text-soft); }
     .btn-primary {
       display: inline-flex;
       align-items: center;
@@ -499,39 +346,34 @@
       color: #fff;
       font-size: 14px;
       font-weight: 500;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 8px;
       transition: background .15s;
     }
-
-    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:hover { background: #1d4ed8; }
 
     /* ── FOOTER ── */
     footer {
       border-top: 1px solid var(--border);
-      padding: 32px 0 40px;
+      padding: 28px 24px 40px;
       text-align: center;
       color: var(--text-muted);
       font-size: 13px;
-      max-width: 760px;
+      max-width: 720px;
       margin: 0 auto;
     }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
-      main { padding: 0 16px; padding-top: calc(var(--nav-height) + 48px); }
-      #home h1 { font-size: 26px; }
+      main { padding: 0 18px; padding-top: calc(var(--nav-height) + 40px); }
+      #home h1 { font-size: 25px; }
       nav { justify-content: flex-start; }
-      nav ul { gap: 0; }
-      nav a { padding: 6px 9px; font-size: 13px; }
+      nav a { padding: 7px 11px; font-size: 13px; }
       .github-card { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
 <body>
-
-  <!-- BACKGROUND -->
-  <canvas id="bg-canvas"></canvas>
 
   <!-- NAV -->
   <nav>
@@ -552,7 +394,7 @@
     <section id="home">
       <div class="avatar">MK</div>
       <h1>Muhammad Khasanboev</h1>
-      <p class="title">Native Mobile Developer</p>
+      <p class="title">Native Mobile Developer · Android &amp; iOS</p>
       <p class="location">
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
         Tashkent, Uzbekistan
@@ -577,11 +419,12 @@
     <section id="about">
       <h2 class="section-title">About</h2>
       <p>
-        I'm an Electrical and Computer Engineering student passionate about building real-world software solutions.
-        With expertise in both Android and iOS development, I focus on creating clean, scalable, and user-friendly
-        mobile applications. I enjoy working across the full mobile stack — from crafting polished UIs with Jetpack
-        Compose and SwiftUI to integrating REST APIs, implementing MVVM architecture, and bridging native code with
-        web technologies.
+        I'm a native mobile developer and final-year Electrical &amp; Computer Engineering student.
+        I build and ship production Android and iOS apps, with a focus on clean architecture, smooth
+        user experience, and reliable performance. I work across the full mobile stack — from building
+        interfaces in Jetpack Compose and SwiftUI to integrating REST APIs, applying the MVVM pattern,
+        and connecting native code with web layers. Today I help develop and maintain live apps on the
+        App Store and Google Play.
       </p>
     </section>
 
@@ -591,41 +434,39 @@
       <div class="timeline">
 
         <div class="timeline-item">
-          <div class="timeline-dot">
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
-          </div>
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h3>Native Mobile Developer</h3>
             <div class="timeline-meta">
               <span class="timeline-company">TAD Industries LLC</span>
+              <span class="dot-sep">·</span>
               <span class="timeline-date">Sep 2025 — Present</span>
               <span class="badge-current">Current</span>
             </div>
             <ul>
-              <li>Publishing and maintaining production applications on App Store and Play Store</li>
-              <li>Debugging, profiling, and designing intuitive interfaces</li>
-              <li>Building JS native bridge and webview integrations</li>
-              <li>Integrating AI features into mobile applications</li>
-              <li>Working with Room DB and MVVM architecture patterns</li>
+              <li>Develop, publish, and maintain production apps on the App Store and Google Play</li>
+              <li>Build native-to-web bridges and WebView integrations for hybrid features</li>
+              <li>Integrate AI-powered features into mobile applications</li>
+              <li>Implement MVVM architecture with local data persistence using Room</li>
+              <li>Debug, profile, and optimize apps for performance and stability</li>
             </ul>
           </div>
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-dot">
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
-          </div>
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
             <h3>Native Mobile Developer — Internship</h3>
             <div class="timeline-meta">
               <span class="timeline-company">TAD Industries LLC</span>
+              <span class="dot-sep">·</span>
               <span class="timeline-date">Jun 2025 — Sep 2025</span>
             </div>
             <ul>
-              <li>Developed native Android applications using Java/XML and Kotlin/Jetpack Compose</li>
-              <li>Implemented Activities, Fragments, and navigation components</li>
-              <li>Integrated RESTful APIs with Retrofit and Moshi</li>
-              <li>Applied UI/UX best practices to improve user experience</li>
+              <li>Built native Android apps using Kotlin with Jetpack Compose and Java with XML</li>
+              <li>Implemented navigation, Activities, and Fragments across multi-screen flows</li>
+              <li>Integrated RESTful APIs using Retrofit and Moshi</li>
+              <li>Applied UI/UX best practices to improve usability and consistency</li>
             </ul>
           </div>
         </div>
@@ -644,11 +485,12 @@
               <h3>Lope Style</h3>
               <span class="badge-live">Live</span>
             </div>
-            <span class="project-date">April 2026</span>
+            <span class="project-date">2026</span>
           </div>
           <p>
-            A cross-platform mobile app for barber and style booking, wrapping a webview with deep link handling.
-            Delivers seamless navigation between native and web layers with push notifications via Firebase.
+            A cross-platform booking app for barbers and styling services, available on both Android and iOS.
+            Built a native shell around a web layer with deep link handling and Firebase push notifications,
+            giving users a seamless experience across native and web screens.
           </p>
           <div class="tech-tags">
             <span class="tech-tag">Kotlin</span>
@@ -659,14 +501,8 @@
             <span class="tech-tag">Deep Links</span>
           </div>
           <div class="project-links">
-            <a href="https://apps.apple.com/uz/app/lopestyle/id6761615021" target="_blank" rel="noopener" class="project-link primary">
-              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-              App Store
-            </a>
-            <a href="https://play.google.com/store/apps/details?id=uz.barberbook.mobile" target="_blank" rel="noopener" class="project-link">
-              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3.18 23.76c.37.21.8.22 1.18.05l12.83-7.4-2.79-2.79-11.22 10.14zM20.4 10.12l-2.77-1.6L14.6 12l3.04 3.04 2.77-1.6a1.59 1.59 0 000-3.32zM2.1.4A1.6 1.6 0 001.5 1.7v20.6c0 .5.2.96.6 1.3L13.47 12 2.1.4zm11.33 10.64l-10.27-10.3 12.83 7.4-2.57 2.57-.82-.82.83.83-2.57 2.57L3.16 23.64l10.27-10.29L12.36 12l1.07-1z"/></svg>
-              Play Store
-            </a>
+            <a href="https://apps.apple.com/uz/app/lopestyle/id6761615021" target="_blank" rel="noopener" class="project-link primary">App Store</a>
+            <a href="https://play.google.com/store/apps/details?id=uz.barberbook.mobile" target="_blank" rel="noopener" class="project-link">Play Store</a>
           </div>
         </div>
 
@@ -676,11 +512,12 @@
               <h3>Smart Safe Education</h3>
               <span class="badge-live">Live</span>
             </div>
-            <span class="project-date">March 2026</span>
+            <span class="project-date">2026</span>
           </div>
           <p>
-            A native Android educational platform that wraps a webview within a robust native shell, providing
-            seamless authentication, offline handling, and native bridge communication with the web layer.
+            A native Android learning platform that wraps a web experience in a robust native shell.
+            Handles authentication, offline states, and two-way communication between native code and
+            the web layer through a custom JavaScript bridge.
           </p>
           <div class="tech-tags">
             <span class="tech-tag">Kotlin</span>
@@ -691,10 +528,7 @@
             <span class="tech-tag">Native Bridge</span>
           </div>
           <div class="project-links">
-            <a href="https://play.google.com/store/apps/details?id=tadi.projects.tadischool" target="_blank" rel="noopener" class="project-link primary">
-              <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M3.18 23.76c.37.21.8.22 1.18.05l12.83-7.4-2.79-2.79-11.22 10.14zM20.4 10.12l-2.77-1.6L14.6 12l3.04 3.04 2.77-1.6a1.59 1.59 0 000-3.32zM2.1.4A1.6 1.6 0 001.5 1.7v20.6c0 .5.2.96.6 1.3L13.47 12 2.1.4zm11.33 10.64l-10.27-10.3 12.83 7.4-2.57 2.57-.82-.82.83.83-2.57 2.57L3.16 23.64l10.27-10.29L12.36 12l1.07-1z"/></svg>
-              Play Store
-            </a>
+            <a href="https://play.google.com/store/apps/details?id=tadi.projects.tadischool" target="_blank" rel="noopener" class="project-link primary">Play Store</a>
           </div>
         </div>
 
@@ -706,18 +540,17 @@
       <h2 class="section-title">Education</h2>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="timeline-dot">
-            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l6.16-3.422A12.083 12.083 0 0121 17H3a12.083 12.083 0 012.84-6.422L12 14z"/></svg>
-          </div>
+          <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h3>Bachelor of Engineering — Electrical and Computer Engineering</h3>
+            <h3>B.Eng. in Electrical &amp; Computer Engineering</h3>
             <div class="timeline-meta">
               <span class="timeline-company">Ajou University</span>
+              <span class="dot-sep">·</span>
               <span class="timeline-date">Sep 2022 — 2026</span>
             </div>
             <ul>
-              <li>Focused on computer engineering fundamentals and software development</li>
-              <li>Applied engineering principles to real-world mobile application projects</li>
+              <li>Coursework in computer engineering, software development, and systems</li>
+              <li>Applied engineering fundamentals to real-world mobile application projects</li>
             </ul>
           </div>
         </div>
@@ -727,30 +560,59 @@
     <!-- SKILLS -->
     <section id="skills">
       <h2 class="section-title">Skills</h2>
-      <div class="skills-grid">
-        <span class="skill-tag">Kotlin</span>
-        <span class="skill-tag">Java</span>
-        <span class="skill-tag">Swift</span>
-        <span class="skill-tag">SwiftUI</span>
-        <span class="skill-tag">Jetpack Compose</span>
-        <span class="skill-tag">Jetpack Compose Navigation</span>
-        <span class="skill-tag">Android Studio</span>
-        <span class="skill-tag">iOS Development</span>
-        <span class="skill-tag">MVVM Architecture</span>
-        <span class="skill-tag">Room DB</span>
-        <span class="skill-tag">Retrofit</span>
-        <span class="skill-tag">Moshi</span>
-        <span class="skill-tag">Hilt DI</span>
-        <span class="skill-tag">REST APIs</span>
-        <span class="skill-tag">JS Native Bridge</span>
-        <span class="skill-tag">Webview</span>
-        <span class="skill-tag">Firebase</span>
-        <span class="skill-tag">AI Integration</span>
-        <span class="skill-tag">Google Maps API</span>
-        <span class="skill-tag">Google Face Detection ML Kit</span>
-        <span class="skill-tag">Appwrite</span>
-        <span class="skill-tag">Keystore</span>
-        <span class="skill-tag">SharedPreferences</span>
+
+      <div class="skill-group">
+        <h4>Languages</h4>
+        <div class="skills-row">
+          <span class="skill-tag">Kotlin</span>
+          <span class="skill-tag">Swift</span>
+          <span class="skill-tag">Java</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Android</h4>
+        <div class="skills-row">
+          <span class="skill-tag">Jetpack Compose</span>
+          <span class="skill-tag">Compose Navigation</span>
+          <span class="skill-tag">Android Studio</span>
+          <span class="skill-tag">XML Layouts</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>iOS</h4>
+        <div class="skills-row">
+          <span class="skill-tag">SwiftUI</span>
+          <span class="skill-tag">iOS Development</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Architecture &amp; Data</h4>
+        <div class="skills-row">
+          <span class="skill-tag">MVVM</span>
+          <span class="skill-tag">Room DB</span>
+          <span class="skill-tag">Hilt (DI)</span>
+          <span class="skill-tag">Keystore</span>
+          <span class="skill-tag">SharedPreferences</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h4>Integrations &amp; Tools</h4>
+        <div class="skills-row">
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Retrofit</span>
+          <span class="skill-tag">Moshi</span>
+          <span class="skill-tag">Firebase</span>
+          <span class="skill-tag">Appwrite</span>
+          <span class="skill-tag">JS Native Bridge</span>
+          <span class="skill-tag">WebView</span>
+          <span class="skill-tag">Google Maps API</span>
+          <span class="skill-tag">ML Kit (Face Detection)</span>
+          <span class="skill-tag">AI Integration</span>
+        </div>
       </div>
     </section>
 
@@ -760,11 +622,11 @@
       <div class="github-card">
         <div class="github-card-left">
           <div class="github-icon">
-            <svg width="26" height="26" fill="white" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            <svg width="24" height="24" fill="white" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
           </div>
           <div>
-            <h3>muhammadkhasanboev</h3>
-            <p>View my open source projects and contributions</p>
+            <h3>@muhammadkhasanboev</h3>
+            <p>Explore my code and open-source projects</p>
           </div>
         </div>
         <a href="https://github.com/muhammadkhasanboev" target="_blank" rel="noopener" class="btn-primary">
@@ -781,201 +643,8 @@
   </footer>
 
   <script>
-    // ── CANVAS BACKGROUND ──
-    const canvas = document.getElementById('bg-canvas');
-    const ctx    = canvas.getContext('2d');
-
-    let W, H;
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', () => { resize(); initParticles(); });
-
-    // Mouse
-    const mouse = { x: -9999, y: -9999 };
-    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
-
-    // Click ripples
-    const ripples = [];
-    window.addEventListener('click', e => {
-      ripples.push({ x: e.clientX, y: e.clientY, r: 0, max: 120, alpha: 1 });
-    });
-
-    // Tech keywords
-    const KEYWORDS = [
-      'Kotlin', 'Swift', 'MVVM', 'Jetpack', 'SwiftUI',
-      'Retrofit', 'Hilt DI', 'Room DB', 'REST API', 'Firebase',
-      'Compose', 'Coroutines', 'Git', 'SOLID', 'Appwrite',
-      'Android', 'iOS', 'Gradle', 'XCTest', 'WebView',
-    ];
-
-    let words = [];
-    function initWords() {
-      words = KEYWORDS.map(text => ({
-        text,
-        x: Math.random() * W,
-        y: Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        alpha: Math.random() * 0.18 + 0.07,
-        size: Math.random() * 4 + 10,
-      }));
-    }
-
-    // Nodes
-    const NODE_COUNT = 70;
-    const CONNECT_DIST = 140;
-    const MOUSE_PUSH   = 100;
-    let nodes = [];
-
-    function initParticles() {
-      nodes = Array.from({ length: NODE_COUNT }, () => ({
-        x:  Math.random() * W,
-        y:  Math.random() * H,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        r:  Math.random() * 2 + 1.5,
-        baseAlpha: Math.random() * 0.5 + 0.3,
-      }));
-      initWords();
-    }
-    initParticles();
-
-    let frame = 0;
-
-    function draw() {
-      ctx.clearRect(0, 0, W, H);
-
-      // ── floating code keywords ──
-      ctx.textAlign = 'left';
-      words.forEach(w => {
-        w.x += w.vx;
-        w.y += w.vy;
-        if (w.x < -100)  w.x = W + 80;
-        if (w.x > W + 100) w.x = -80;
-        if (w.y < -30)   w.y = H + 20;
-        if (w.y > H + 30)  w.y = -20;
-
-        // pulse opacity
-        const pulse = w.alpha * (0.6 + 0.4 * Math.sin(frame * 0.01 + w.x));
-        ctx.font = `500 ${w.size}px 'Inter', monospace`;
-        ctx.fillStyle = `rgba(37,99,235,${pulse})`;
-        ctx.fillText(w.text, w.x, w.y);
-      });
-
-      // ── update & draw nodes ──
-      nodes.forEach(n => {
-        // Mouse repulsion
-        const dx = n.x - mouse.x;
-        const dy = n.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < MOUSE_PUSH && dist > 0) {
-          const force = (MOUSE_PUSH - dist) / MOUSE_PUSH;
-          n.vx += (dx / dist) * force * 0.8;
-          n.vy += (dy / dist) * force * 0.8;
-        }
-
-        // Friction
-        n.vx *= 0.97;
-        n.vy *= 0.97;
-
-        n.x += n.vx;
-        n.y += n.vy;
-
-        // Wrap edges
-        if (n.x < 0)  n.x = W;
-        if (n.x > W)  n.x = 0;
-        if (n.y < 0)  n.y = H;
-        if (n.y > H)  n.y = 0;
-      });
-
-      // ── draw connecting lines ──
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = a.x - b.x, dy = a.y - b.y;
-          const d  = Math.sqrt(dx * dx + dy * dy);
-          if (d < CONNECT_DIST) {
-            const alpha = (1 - d / CONNECT_DIST) * 0.45;
-
-            // highlight lines near mouse
-            const mx = (a.x + b.x) / 2 - mouse.x;
-            const my = (a.y + b.y) / 2 - mouse.y;
-            const md = Math.sqrt(mx * mx + my * my);
-            const boost = md < 160 ? (1 - md / 160) * 0.5 : 0;
-
-            ctx.beginPath();
-            ctx.moveTo(a.x, a.y);
-            ctx.lineTo(b.x, b.y);
-            ctx.strokeStyle = `rgba(37,99,235,${alpha + boost})`;
-            ctx.lineWidth = 0.8 + boost;
-            ctx.stroke();
-          }
-        }
-      }
-
-      // ── draw nodes ──
-      nodes.forEach(n => {
-        const dx   = n.x - mouse.x;
-        const dy   = n.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const near = dist < 120;
-
-        // glow for nearby nodes
-        if (near) {
-          const g = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, 20);
-          g.addColorStop(0, `rgba(37,99,235,0.25)`);
-          g.addColorStop(1, `rgba(37,99,235,0)`);
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, 20, 0, Math.PI * 2);
-          ctx.fillStyle = g;
-          ctx.fill();
-        }
-
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, near ? n.r + 1.5 : n.r, 0, Math.PI * 2);
-        ctx.fillStyle = near
-          ? `rgba(37,99,235,${n.baseAlpha + 0.4})`
-          : `rgba(37,99,235,${n.baseAlpha})`;
-        ctx.fill();
-      });
-
-      // ── mouse glow cursor ──
-      if (mouse.x > 0) {
-        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 80);
-        g.addColorStop(0, 'rgba(37,99,235,0.12)');
-        g.addColorStop(1, 'rgba(37,99,235,0)');
-        ctx.beginPath();
-        ctx.arc(mouse.x, mouse.y, 80, 0, Math.PI * 2);
-        ctx.fillStyle = g;
-        ctx.fill();
-      }
-
-      // ── click ripples ──
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const rp = ripples[i];
-        rp.r    += 4;
-        rp.alpha = (1 - rp.r / rp.max) * 0.7;
-        if (rp.r >= rp.max) { ripples.splice(i, 1); continue; }
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(37,99,235,${rp.alpha})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      }
-
-      frame++;
-      requestAnimationFrame(draw);
-    }
-    draw();
-
-    // ── Active nav link on scroll ──
-    const sections = document.querySelectorAll('section[id]');
+    // Highlight the active nav link while scrolling
     const navLinks = document.querySelectorAll('nav a');
-
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -986,7 +655,7 @@
       });
     }, { rootMargin: '-40% 0px -55% 0px' });
 
-    sections.forEach(s => observer.observe(s));
+    document.querySelectorAll('section[id]').forEach(s => observer.observe(s));
   </script>
 </body>
 </html>
