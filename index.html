@@ -78,6 +78,60 @@
     nav a:hover { color: var(--text); background: var(--bg-soft); }
     nav a.active { background: var(--accent-soft); color: var(--accent); }
 
+    /* ── LANGUAGE SWITCHER ── */
+    .lang-switch { position: fixed; top: 11px; right: 14px; z-index: 200; }
+    .lang-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 11px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-soft);
+      cursor: pointer;
+      font-family: inherit;
+      transition: border-color .15s, color .15s;
+    }
+    .lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .lang-btn svg { flex-shrink: 0; }
+    .lang-menu {
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 10px 28px rgba(16,24,40,.12);
+      padding: 4px;
+      min-width: 150px;
+      display: none;
+    }
+    .lang-menu.open { display: block; }
+    .lang-menu button {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      background: none;
+      border: none;
+      padding: 9px 11px;
+      border-radius: 7px;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+    .lang-menu button:hover { background: var(--bg-soft); }
+    .lang-menu button.active { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+    .lang-menu button .code { font-size: 11px; color: var(--text-muted); font-weight: 600; }
+    .lang-menu button.active .code { color: var(--accent); }
+
     /* ── LAYOUT ── */
     main {
       max-width: 720px;
@@ -368,6 +422,7 @@
       main { padding: 0 18px; padding-top: calc(var(--nav-height) + 40px); }
       #home h1 { font-size: 25px; }
       nav { justify-content: flex-start; }
+      nav ul { padding-right: 64px; }
       nav a { padding: 7px 11px; font-size: 13px; }
       .github-card { flex-direction: column; align-items: flex-start; }
     }
@@ -375,16 +430,29 @@
 </head>
 <body>
 
+  <!-- LANGUAGE SWITCHER -->
+  <div class="lang-switch">
+    <button class="lang-btn" id="lang-btn" aria-haspopup="true" aria-expanded="false">
+      <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path stroke-linecap="round" d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+      <span id="lang-current">EN</span>
+    </button>
+    <div class="lang-menu" id="lang-menu" role="menu">
+      <button data-lang="en" role="menuitem">English <span class="code">EN</span></button>
+      <button data-lang="ru" role="menuitem">Русский <span class="code">RU</span></button>
+      <button data-lang="uz" role="menuitem">O‘zbekcha <span class="code">UZ</span></button>
+    </div>
+  </div>
+
   <!-- NAV -->
   <nav>
     <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#education">Education</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#github">GitHub</a></li>
+      <li><a href="#home" data-i18n="nav.home">Home</a></li>
+      <li><a href="#about" data-i18n="nav.about">About</a></li>
+      <li><a href="#experience" data-i18n="nav.experience">Experience</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projects</a></li>
+      <li><a href="#education" data-i18n="nav.education">Education</a></li>
+      <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
+      <li><a href="#github" data-i18n="nav.github">GitHub</a></li>
     </ul>
   </nav>
 
@@ -394,15 +462,15 @@
     <section id="home">
       <div class="avatar">MK</div>
       <h1>Muhammad Khasanboev</h1>
-      <p class="title">Native Mobile Developer · Android &amp; iOS</p>
+      <p class="title" data-i18n="hero.title">Native Mobile Developer · Android &amp; iOS</p>
       <p class="location">
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"/></svg>
-        Tashkent, Uzbekistan
+        <span data-i18n="hero.location">Tashkent, Uzbekistan</span>
       </p>
       <div class="contact-links">
         <a href="mailto:muhammadkhasanboev@gmail.com" class="contact-link">
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          Email
+          <span data-i18n="contact.email">Email</span>
         </a>
         <a href="https://www.linkedin.com/in/muhammadkhasanboev" target="_blank" rel="noopener" class="contact-link">
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -417,8 +485,8 @@
 
     <!-- ABOUT -->
     <section id="about">
-      <h2 class="section-title">About</h2>
-      <p>
+      <h2 class="section-title" data-i18n="section.about">About</h2>
+      <p data-i18n="about.text">
         Native mobile developer building Android and iOS apps that real people use every day.
         I hold a degree in Electrical &amp; Computer Engineering and work across the full mobile
         stack — Jetpack Compose, SwiftUI, REST APIs, MVVM, and native-to-web bridges. I care about
@@ -429,25 +497,25 @@
 
     <!-- EXPERIENCE -->
     <section id="experience">
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title" data-i18n="section.experience">Experience</h2>
       <div class="timeline">
 
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h3>Native Mobile Developer</h3>
+            <h3 data-i18n="exp1.title">Native Mobile Developer</h3>
             <div class="timeline-meta">
               <span class="timeline-company">TAD Industries LLC</span>
               <span class="dot-sep">·</span>
-              <span class="timeline-date">Sep 2025 — Present</span>
-              <span class="badge-current">Current</span>
+              <span class="timeline-date" data-i18n="exp1.date">Sep 2025 — Present</span>
+              <span class="badge-current" data-i18n="badge.current">Current</span>
             </div>
             <ul>
-              <li>Develop, publish, and maintain production apps on the App Store and Google Play</li>
-              <li>Build native-to-web bridges and WebView integrations for hybrid features</li>
-              <li>Integrate AI-powered features into mobile applications</li>
-              <li>Implement MVVM architecture with local data persistence using Room</li>
-              <li>Debug, profile, and optimize apps for performance and stability</li>
+              <li data-i18n="exp1.b1">Develop, publish, and maintain production apps on the App Store and Google Play</li>
+              <li data-i18n="exp1.b2">Build native-to-web bridges and WebView integrations for hybrid features</li>
+              <li data-i18n="exp1.b3">Integrate AI-powered features into mobile applications</li>
+              <li data-i18n="exp1.b4">Implement MVVM architecture with local data persistence using Room</li>
+              <li data-i18n="exp1.b5">Debug, profile, and optimize apps for performance and stability</li>
             </ul>
           </div>
         </div>
@@ -455,17 +523,17 @@
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h3>Native Mobile Developer — Internship</h3>
+            <h3 data-i18n="exp2.title">Native Mobile Developer — Internship</h3>
             <div class="timeline-meta">
               <span class="timeline-company">TAD Industries LLC</span>
               <span class="dot-sep">·</span>
-              <span class="timeline-date">Jun 2025 — Sep 2025</span>
+              <span class="timeline-date" data-i18n="exp2.date">Jun 2025 — Sep 2025</span>
             </div>
             <ul>
-              <li>Built native Android apps using Kotlin with Jetpack Compose and Java with XML</li>
-              <li>Implemented navigation, Activities, and Fragments across multi-screen flows</li>
-              <li>Integrated RESTful APIs using Retrofit and Moshi</li>
-              <li>Applied UI/UX best practices to improve usability and consistency</li>
+              <li data-i18n="exp2.b1">Built native Android apps using Kotlin with Jetpack Compose and Java with XML</li>
+              <li data-i18n="exp2.b2">Implemented navigation, Activities, and Fragments across multi-screen flows</li>
+              <li data-i18n="exp2.b3">Integrated RESTful APIs using Retrofit and Moshi</li>
+              <li data-i18n="exp2.b4">Applied UI/UX best practices to improve usability and consistency</li>
             </ul>
           </div>
         </div>
@@ -475,18 +543,18 @@
 
     <!-- PROJECTS -->
     <section id="projects">
-      <h2 class="section-title">Projects</h2>
+      <h2 class="section-title" data-i18n="section.projects">Projects</h2>
       <div class="projects-grid">
 
         <div class="project-card">
           <div class="project-header">
             <div class="project-title-row">
               <h3>Lope Style</h3>
-              <span class="badge-live">Live</span>
+              <span class="badge-live" data-i18n="proj.live">Live</span>
             </div>
             <span class="project-date">2026</span>
           </div>
-          <p>
+          <p data-i18n="proj1.desc">
             A cross-platform booking app for barbers and styling services, available on both Android and iOS.
             Built a native shell around a web layer with deep link handling and Firebase push notifications,
             giving users a seamless experience across native and web screens.
@@ -509,11 +577,11 @@
           <div class="project-header">
             <div class="project-title-row">
               <h3>Smart Safe Education</h3>
-              <span class="badge-live">Live</span>
+              <span class="badge-live" data-i18n="proj.live">Live</span>
             </div>
             <span class="project-date">2026</span>
           </div>
-          <p>
+          <p data-i18n="proj2.desc">
             A native Android learning platform that wraps a web experience in a robust native shell.
             Handles authentication, offline states, and two-way communication between native code and
             the web layer through a custom JavaScript bridge.
@@ -536,20 +604,20 @@
 
     <!-- EDUCATION -->
     <section id="education">
-      <h2 class="section-title">Education</h2>
+      <h2 class="section-title" data-i18n="section.education">Education</h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-dot"></div>
           <div class="timeline-content">
-            <h3>B.Eng. in Electrical &amp; Computer Engineering</h3>
+            <h3 data-i18n="edu.degree">B.Eng. in Electrical &amp; Computer Engineering</h3>
             <div class="timeline-meta">
               <span class="timeline-company">Ajou University</span>
               <span class="dot-sep">·</span>
-              <span class="timeline-date">Sep 2022 — 2026</span>
+              <span class="timeline-date" data-i18n="edu.date">Sep 2022 — 2026</span>
             </div>
             <ul>
-              <li>Coursework in computer engineering, software development, and systems</li>
-              <li>Applied engineering fundamentals to real-world mobile application projects</li>
+              <li data-i18n="edu.b1">Coursework in computer engineering, software development, and systems</li>
+              <li data-i18n="edu.b2">Applied engineering fundamentals to real-world mobile application projects</li>
             </ul>
           </div>
         </div>
@@ -558,10 +626,10 @@
 
     <!-- SKILLS -->
     <section id="skills">
-      <h2 class="section-title">Skills</h2>
+      <h2 class="section-title" data-i18n="section.skills">Skills</h2>
 
       <div class="skill-group">
-        <h4>Languages</h4>
+        <h4 data-i18n="skills.languages">Languages</h4>
         <div class="skills-row">
           <span class="skill-tag">Kotlin</span>
           <span class="skill-tag">Swift</span>
@@ -570,7 +638,7 @@
       </div>
 
       <div class="skill-group">
-        <h4>Android</h4>
+        <h4 data-i18n="skills.android">Android</h4>
         <div class="skills-row">
           <span class="skill-tag">Jetpack Compose</span>
           <span class="skill-tag">Compose Navigation</span>
@@ -580,15 +648,15 @@
       </div>
 
       <div class="skill-group">
-        <h4>iOS</h4>
+        <h4 data-i18n="skills.ios">iOS</h4>
         <div class="skills-row">
           <span class="skill-tag">SwiftUI</span>
-          <span class="skill-tag">iOS Development</span>
+          <span class="skill-tag" data-i18n="skills.iosdev">iOS Development</span>
         </div>
       </div>
 
       <div class="skill-group">
-        <h4>Architecture &amp; Data</h4>
+        <h4 data-i18n="skills.arch">Architecture &amp; Data</h4>
         <div class="skills-row">
           <span class="skill-tag">MVVM</span>
           <span class="skill-tag">Room DB</span>
@@ -599,7 +667,7 @@
       </div>
 
       <div class="skill-group">
-        <h4>Integrations &amp; Tools</h4>
+        <h4 data-i18n="skills.integrations">Integrations &amp; Tools</h4>
         <div class="skills-row">
           <span class="skill-tag">REST APIs</span>
           <span class="skill-tag">Retrofit</span>
@@ -609,15 +677,15 @@
           <span class="skill-tag">JS Native Bridge</span>
           <span class="skill-tag">WebView</span>
           <span class="skill-tag">Google Maps API</span>
-          <span class="skill-tag">ML Kit (Face Detection)</span>
-          <span class="skill-tag">AI Integration</span>
+          <span class="skill-tag" data-i18n="skills.mlkit">ML Kit (Face Detection)</span>
+          <span class="skill-tag" data-i18n="skills.ai">AI Integration</span>
         </div>
       </div>
     </section>
 
     <!-- GITHUB -->
     <section id="github">
-      <h2 class="section-title">GitHub</h2>
+      <h2 class="section-title" data-i18n="section.github">GitHub</h2>
       <div class="github-card">
         <div class="github-card-left">
           <div class="github-icon">
@@ -625,11 +693,11 @@
           </div>
           <div>
             <h3>@muhammadkhasanboev</h3>
-            <p>Explore my code and open-source projects</p>
+            <p data-i18n="github.sub">Explore my code and open-source projects</p>
           </div>
         </div>
         <a href="https://github.com/muhammadkhasanboev" target="_blank" rel="noopener" class="btn-primary">
-          View GitHub
+          <span data-i18n="github.btn">View GitHub</span>
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
         </a>
       </div>
@@ -638,11 +706,172 @@
   </main>
 
   <footer>
-    <p>© 2026 Muhammad Khasanboev · Native Mobile Developer · Tashkent, Uzbekistan</p>
+    <p data-i18n="footer.text">© 2026 Muhammad Khasanboev · Native Mobile Developer · Tashkent, Uzbekistan</p>
   </footer>
 
   <script>
-    // Highlight the active nav link while scrolling
+    // ── TRANSLATIONS ──
+    const translations = {
+      en: {
+        'doc.title': 'Muhammad Khasanboev — Mobile Developer',
+        'nav.home': 'Home', 'nav.about': 'About', 'nav.experience': 'Experience',
+        'nav.projects': 'Projects', 'nav.education': 'Education', 'nav.skills': 'Skills', 'nav.github': 'GitHub',
+        'hero.title': 'Native Mobile Developer · Android & iOS',
+        'hero.location': 'Tashkent, Uzbekistan',
+        'contact.email': 'Email',
+        'section.about': 'About', 'section.experience': 'Experience', 'section.projects': 'Projects',
+        'section.education': 'Education', 'section.skills': 'Skills', 'section.github': 'GitHub',
+        'about.text': 'Native mobile developer building Android and iOS apps that real people use every day. I hold a degree in Electrical & Computer Engineering and work across the full mobile stack — Jetpack Compose, SwiftUI, REST APIs, MVVM, and native-to-web bridges. I care about clean architecture, smooth user experience, and shipping reliable software. Right now I develop and maintain production apps live on the App Store and Google Play.',
+        'exp1.title': 'Native Mobile Developer',
+        'exp1.date': 'Sep 2025 — Present',
+        'badge.current': 'Current',
+        'exp1.b1': 'Develop, publish, and maintain production apps on the App Store and Google Play',
+        'exp1.b2': 'Build native-to-web bridges and WebView integrations for hybrid features',
+        'exp1.b3': 'Integrate AI-powered features into mobile applications',
+        'exp1.b4': 'Implement MVVM architecture with local data persistence using Room',
+        'exp1.b5': 'Debug, profile, and optimize apps for performance and stability',
+        'exp2.title': 'Native Mobile Developer — Internship',
+        'exp2.date': 'Jun 2025 — Sep 2025',
+        'exp2.b1': 'Built native Android apps using Kotlin with Jetpack Compose and Java with XML',
+        'exp2.b2': 'Implemented navigation, Activities, and Fragments across multi-screen flows',
+        'exp2.b3': 'Integrated RESTful APIs using Retrofit and Moshi',
+        'exp2.b4': 'Applied UI/UX best practices to improve usability and consistency',
+        'proj.live': 'Live',
+        'proj1.desc': 'A cross-platform booking app for barbers and styling services, available on both Android and iOS. Built a native shell around a web layer with deep link handling and Firebase push notifications, giving users a seamless experience across native and web screens.',
+        'proj2.desc': 'A native Android learning platform that wraps a web experience in a robust native shell. Handles authentication, offline states, and two-way communication between native code and the web layer through a custom JavaScript bridge.',
+        'edu.degree': 'B.Eng. in Electrical & Computer Engineering',
+        'edu.date': 'Sep 2022 — 2026',
+        'edu.b1': 'Coursework in computer engineering, software development, and systems',
+        'edu.b2': 'Applied engineering fundamentals to real-world mobile application projects',
+        'skills.languages': 'Languages', 'skills.android': 'Android', 'skills.ios': 'iOS',
+        'skills.iosdev': 'iOS Development',
+        'skills.arch': 'Architecture & Data', 'skills.integrations': 'Integrations & Tools',
+        'skills.mlkit': 'ML Kit (Face Detection)', 'skills.ai': 'AI Integration',
+        'github.sub': 'Explore my code and open-source projects',
+        'github.btn': 'View GitHub',
+        'footer.text': '© 2026 Muhammad Khasanboev · Native Mobile Developer · Tashkent, Uzbekistan'
+      },
+      ru: {
+        'doc.title': 'Мухаммад Хасанбоев — Мобильный разработчик',
+        'nav.home': 'Главная', 'nav.about': 'Обо мне', 'nav.experience': 'Опыт',
+        'nav.projects': 'Проекты', 'nav.education': 'Образование', 'nav.skills': 'Навыки', 'nav.github': 'GitHub',
+        'hero.title': 'Нативный мобильный разработчик · Android и iOS',
+        'hero.location': 'Ташкент, Узбекистан',
+        'contact.email': 'Почта',
+        'section.about': 'Обо мне', 'section.experience': 'Опыт', 'section.projects': 'Проекты',
+        'section.education': 'Образование', 'section.skills': 'Навыки', 'section.github': 'GitHub',
+        'about.text': 'Нативный мобильный разработчик, создающий приложения для Android и iOS, которыми люди пользуются каждый день. У меня есть степень в области электротехники и компьютерной инженерии, и я работаю со всем мобильным стеком — Jetpack Compose, SwiftUI, REST API, MVVM и мостами между нативным кодом и веб-слоем. Для меня важны чистая архитектура, удобство использования и стабильность продукта. Сейчас я разрабатываю и поддерживаю приложения, опубликованные в App Store и Google Play.',
+        'exp1.title': 'Нативный мобильный разработчик',
+        'exp1.date': 'Сен 2025 — настоящее время',
+        'badge.current': 'Сейчас',
+        'exp1.b1': 'Разрабатываю, публикую и поддерживаю приложения в App Store и Google Play',
+        'exp1.b2': 'Создаю мосты между нативным кодом и веб-слоем, а также интеграции с WebView',
+        'exp1.b3': 'Внедряю функции на основе искусственного интеллекта в мобильные приложения',
+        'exp1.b4': 'Реализую архитектуру MVVM с локальным хранением данных через Room',
+        'exp1.b5': 'Отлаживаю, профилирую и оптимизирую приложения для стабильной работы',
+        'exp2.title': 'Нативный мобильный разработчик — Стажировка',
+        'exp2.date': 'Июн 2025 — Сен 2025',
+        'exp2.b1': 'Создавал нативные Android-приложения на Kotlin с Jetpack Compose и Java с XML',
+        'exp2.b2': 'Реализовывал навигацию, Activity и Fragment в многоэкранных сценариях',
+        'exp2.b3': 'Интегрировал REST API с помощью Retrofit и Moshi',
+        'exp2.b4': 'Применял лучшие практики UI/UX для удобства и единообразия',
+        'proj.live': 'Опубликовано',
+        'proj1.desc': 'Кроссплатформенное приложение для записи к барберам и стилистам, доступное на Android и iOS. Построил нативную оболочку вокруг веб-слоя с обработкой deep links и push-уведомлениями через Firebase, обеспечив бесшовный опыт между нативными и веб-экранами.',
+        'proj2.desc': 'Нативная Android-платформа для обучения, оборачивающая веб-интерфейс в надёжную нативную оболочку. Обрабатывает авторизацию, офлайн-состояния и двустороннюю связь между нативным кодом и веб-слоем через собственный JavaScript-мост.',
+        'edu.degree': 'Бакалавр электротехники и компьютерной инженерии',
+        'edu.date': 'Сен 2022 — 2026',
+        'edu.b1': 'Курсы по компьютерной инженерии, разработке ПО и системам',
+        'edu.b2': 'Применял инженерные основы в реальных проектах мобильных приложений',
+        'skills.languages': 'Языки', 'skills.android': 'Android', 'skills.ios': 'iOS',
+        'skills.iosdev': 'Разработка под iOS',
+        'skills.arch': 'Архитектура и данные', 'skills.integrations': 'Интеграции и инструменты',
+        'skills.mlkit': 'ML Kit (распознавание лиц)', 'skills.ai': 'Интеграция ИИ',
+        'github.sub': 'Посмотрите мой код и open-source проекты',
+        'github.btn': 'Открыть GitHub',
+        'footer.text': '© 2026 Muhammad Khasanboev · Нативный мобильный разработчик · Ташкент, Узбекистан'
+      },
+      uz: {
+        'doc.title': 'Muhammad Xasanboyev — Mobil dasturchi',
+        'nav.home': 'Bosh sahifa', 'nav.about': 'Men haqimda', 'nav.experience': 'Tajriba',
+        'nav.projects': 'Loyihalar', 'nav.education': 'Ta’lim', 'nav.skills': 'Ko‘nikmalar', 'nav.github': 'GitHub',
+        'hero.title': 'Native mobil dasturchi · Android va iOS',
+        'hero.location': 'Toshkent, Oʻzbekiston',
+        'contact.email': 'Email',
+        'section.about': 'Men haqimda', 'section.experience': 'Tajriba', 'section.projects': 'Loyihalar',
+        'section.education': 'Ta’lim', 'section.skills': 'Ko‘nikmalar', 'section.github': 'GitHub',
+        'about.text': 'Native mobil dasturchi — har kuni odamlar foydalanadigan Android va iOS ilovalarini yarataman. Elektrotexnika va kompyuter muhandisligi bo‘yicha diplomga egaman va to‘liq mobil stek bilan ishlayman — Jetpack Compose, SwiftUI, REST API, MVVM hamda native va veb qatlamlari o‘rtasidagi ko‘priklar. Toza arxitektura, qulay foydalanuvchi tajribasi va ishonchli dasturiy ta’minotni qadrlayman. Hozir App Store va Google Play’da joylashtirilgan ilovalarni ishlab chiqaman va qo‘llab-quvvatlayman.',
+        'exp1.title': 'Native mobil dasturchi',
+        'exp1.date': 'Sen 2025 — hozirgacha',
+        'badge.current': 'Hozirgi',
+        'exp1.b1': 'App Store va Google Play uchun ilovalarni ishlab chiqaman, joylashtiraman va qo‘llab-quvvatlayman',
+        'exp1.b2': 'Native kod va veb-qatlam o‘rtasida ko‘priklar hamda WebView integratsiyalarini yarataman',
+        'exp1.b3': 'Mobil ilovalarga sun’iy intellekt (AI) funksiyalarini integratsiya qilaman',
+        'exp1.b4': 'Room orqali lokal ma’lumotlarni saqlash bilan MVVM arxitekturasini qo‘llayman',
+        'exp1.b5': 'Ilovalarning barqaror ishlashi uchun disk raskadrovka, profillash va optimizatsiya qilaman',
+        'exp2.title': 'Native mobil dasturchi — Amaliyot',
+        'exp2.date': 'Iyun 2025 — Sen 2025',
+        'exp2.b1': 'Kotlin va Jetpack Compose hamda Java va XML yordamida native Android ilovalar yaratdim',
+        'exp2.b2': 'Ko‘p ekranli oqimlarda navigatsiya, Activity va Fragmentlarni amalga oshirdim',
+        'exp2.b3': 'Retrofit va Moshi yordamida REST API’larni integratsiya qildim',
+        'exp2.b4': 'Qulaylik va izchillik uchun UI/UX yondashuvlarini qo‘lladim',
+        'proj.live': 'Faol',
+        'proj1.desc': 'Barber va stilistlarga yozilish uchun kross-platformali ilova — Android va iOS’da mavjud. Deep link va Firebase push-bildirishnomalari bilan veb-qatlam atrofida native qobiq yaratib, native va veb ekranlar o‘rtasida uzluksiz tajribani ta’minladim.',
+        'proj2.desc': 'Veb-tajribani mustahkam native qobiqqa o‘rab beruvchi native Android ta’lim platformasi. Avtorizatsiya, oflayn holatlar va maxsus JavaScript ko‘prik orqali native kod hamda veb-qatlam o‘rtasidagi ikki tomonlama aloqani boshqaradi.',
+        'edu.degree': 'Elektrotexnika va kompyuter muhandisligi bakalavri',
+        'edu.date': 'Sen 2022 — 2026',
+        'edu.b1': 'Kompyuter muhandisligi, dasturiy ta’minot va tizimlar bo‘yicha kurslar',
+        'edu.b2': 'Muhandislik asoslarini real mobil ilova loyihalarida qo‘lladim',
+        'skills.languages': 'Dasturlash tillari', 'skills.android': 'Android', 'skills.ios': 'iOS',
+        'skills.iosdev': 'iOS dasturlash',
+        'skills.arch': 'Arxitektura va ma’lumotlar', 'skills.integrations': 'Integratsiyalar va vositalar',
+        'skills.mlkit': 'ML Kit (yuzni aniqlash)', 'skills.ai': 'AI integratsiyasi',
+        'github.sub': 'Mening kodim va ochiq manbali loyihalarim bilan tanishing',
+        'github.btn': 'GitHub’ni ochish',
+        'footer.text': '© 2026 Muhammad Khasanboev · Native mobil dasturchi · Toshkent, Oʻzbekiston'
+      }
+    };
+
+    function applyLang(lang) {
+      const dict = translations[lang] || translations.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+      document.documentElement.lang = lang;
+      if (dict['doc.title']) document.title = dict['doc.title'];
+      document.getElementById('lang-current').textContent = lang.toUpperCase();
+      document.querySelectorAll('.lang-menu button').forEach(b =>
+        b.classList.toggle('active', b.dataset.lang === lang));
+      try { localStorage.setItem('lang', lang); } catch (e) {}
+    }
+
+    // ── LANGUAGE SWITCHER UI ──
+    const langBtn = document.getElementById('lang-btn');
+    const langMenu = document.getElementById('lang-menu');
+
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const open = langMenu.classList.toggle('open');
+      langBtn.setAttribute('aria-expanded', open);
+    });
+    langMenu.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        applyLang(btn.dataset.lang);
+        langMenu.classList.remove('open');
+        langBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+    document.addEventListener('click', () => {
+      langMenu.classList.remove('open');
+      langBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    // English is the default; restore a saved choice if present.
+    let initial = 'en';
+    try { initial = localStorage.getItem('lang') || 'en'; } catch (e) {}
+    applyLang(translations[initial] ? initial : 'en');
+
+    // ── Active nav link while scrolling ──
     const navLinks = document.querySelectorAll('nav a');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
